@@ -4,6 +4,9 @@ dist: xenial
 # The commands are in order how they are executed in a job lifecycle
 # https://docs.travis-ci.com/user/job-lifecycle#the-job-lifecycle
 
+env:
+  - RELEASE_VERSION=1.1.0
+
 script:
   - echo FAKE BUILD
   #- ./gradlew build
