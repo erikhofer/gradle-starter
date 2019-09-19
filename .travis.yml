@@ -18,6 +18,7 @@ deploy:
       #condition: $RELEASE_VERSION =~ /^([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)$/
       condition: $RELEASE_VERSION != ''
     script: |
-      ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$$RELEASE_VERSION
+      git checkout $TRAVIS_BRANCH &&
+      ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$RELEASE_VERSION
   - provider: script
     script: echo MOIN $RELEASE_VERSION
