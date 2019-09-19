@@ -26,6 +26,6 @@ dependencies {
 
 release {
     git {
-        requireBranch = ''
+        // requireBranch = ''
     }
 }
