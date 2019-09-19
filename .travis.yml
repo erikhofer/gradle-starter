@@ -5,12 +5,14 @@ dist: xenial
 # https://docs.travis-ci.com/user/job-lifecycle#the-job-lifecycle
 
 script:
-  - ./gradlew build
+  - echo FAKE BUILD
+  #- ./gradlew build
 
 deploy:
   - provider: script
     on:
-      condition: $RELEASE_VERSION =~ /^([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)$/
+      #condition: $RELEASE_VERSION =~ /^([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)$/
+      condition: env(RELEASE_VERSION) IS present
     script: echo DO RELEASE $RELEASE_VERSION
   - provider: script
     script: echo MOIN $RELEASE_VERSION
