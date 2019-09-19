@@ -1,0 +1,8 @@
+language: java
+dist: xenial
+
+# The commands are in order how they are executed in a job lifecycle
+# https://docs.travis-ci.com/user/job-lifecycle#the-job-lifecycle
+
+script:
+  - ./gradlew build

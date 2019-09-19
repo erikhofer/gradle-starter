@@ -2,17 +2,11 @@ plugins {
     id 'java'
     id 'groovy'
     id 'application'
-    id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.7.3'
 }
 
 description = 'A template project of Gradle'
 group = 'org.hidetake'
-version = System.getenv('CIRCLE_TAG') ?: 'SNAPSHOT'
-
-ext.license = 'Apache-2.0'
-ext.licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-ext.vcsUrl = 'https://github.com/int128/gradle-starter.git'
+version = '1.0.0-SNAPSHOT'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -29,70 +23,3 @@ dependencies {
     testRuntime 'cglib:cglib-nodep:3.2.5'
     testRuntime 'org.objenesis:objenesis:2.6'
 }
-
-/*
- * Tasks and settings for publishing to Bintray
- */
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    from "${buildDir}/docs/javadoc"
-    classifier = 'javadoc'
-}
-
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            groupId rootProject.group
-            artifactId rootProject.name
-            pom.withXml {
-                asNode().children().last() + {
-                    resolveStrategy = DELEGATE_FIRST
-                    name rootProject.name
-                    description rootProject.description
-                    url rootProject.vcsUrl
-                    scm {
-                        url rootProject.vcsUrl
-                        connection "scm:git:$rootProject.vcsUrl"
-                    }
-                    licenses {
-                        license {
-                            name rootProject.license
-                            url rootProject.licenseUrl
-                            distribution 'repo'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id rootProject.group
-                            name rootProject.group
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    user = project.findProperty('bintrayUser')
-    key  = project.findProperty('bintrayKey')
-    publications = ['maven']
-    pkg {
-        repo = 'maven'
-        name = rootProject.name
-        licenses = [rootProject.license]
-        vcsUrl = rootProject.vcsUrl
-        version {
-            name = rootProject.version
-        }
-    }
-}
-
-task install(dependsOn: 'publishMavenPublicationToMavenLocal')
