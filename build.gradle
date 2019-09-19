@@ -23,3 +23,9 @@ dependencies {
     testRuntime 'cglib:cglib-nodep:3.2.5'
     testRuntime 'org.objenesis:objenesis:2.6'
 }
+
+release {
+    git {
+        requireBranch = ''
+    }
+}
