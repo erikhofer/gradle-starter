@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'groovy'
     id 'application'
+    id 'net.researchgate.release' version '2.6.0'
 }
 
 description = 'A template project of Gradle'
