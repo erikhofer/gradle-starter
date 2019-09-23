@@ -20,5 +20,8 @@ deploy:
       git config --global user.name "Travis CI" &&
       git checkout $TRAVIS_BRANCH &&
       ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$RELEASE_VERSION
-  - provider: script
-    script: echo MOIN $RELEASE_VERSION
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    skip_cleanup: true
+    on:
+      tags: true
